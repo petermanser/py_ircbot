@@ -33,13 +33,13 @@ def parse(data):
                     cmd = msg.split()[0]
                     params = msg.lstrip('%s ' % cmd)
                     
-                    if(cmd == 'read'):
+                    if(cmd == '.read'):
                         pastefile(params.split()[0])
                     
-                    elif(cmd == 'say'):
+                    elif(cmd == '.say'):
                         sendcmsg(params)
                     
-                    elif(cmd == 'do'):
+                    elif(cmd == '.do'):
                         sendcmd(params)
                     
                     else:
@@ -63,8 +63,6 @@ def sendcmsg(msg):
     
 def sendmsg(target, msg):
     sendcmd('PRIVMSG %s :%s' % (target, msg))
-    time.sleep(1)
-
 
 def errormsg(target, code):
     msg = '#%s: ' % code
@@ -107,6 +105,7 @@ def chanmode(mode, target):
     
 def sendcmd(cmd):
     s.send('%s\r\n' % cmd)
+    time.sleep(1)
 
 s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
